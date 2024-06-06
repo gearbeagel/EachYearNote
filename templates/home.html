@@ -1,0 +1,125 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+<!DOCTYPE html>
+<html lang="en" class="h-100" data-bs-theme="auto">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+            integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+            async></script>
+    {% block title %}<title>Home</title>{% endblock %}
+    <style>
+        * {
+            color: #7189FF;
+        }
+        .card {
+            background-color: #758ECD;
+            border: 3px solid #A0DDFF;
+            border-radius: 20px;
+            color: #A0DDFF;
+            width: 350px;
+        }
+
+        a, a:hover {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body class="d-flex h-100 text-center text-bg-dark" style="background-color: #C1CEFE !important;">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-3 sticky-md-top">
+        <div>
+            <a href="{% url 'home' %}" style="text-decoration: none"><h3 class="float-md-start mb-0">For My Love <3</h3></a>
+        </div>
+        <div class="dropdown-menu-end float-md-end">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #2F3D99; border: none">
+                   Вітя, а що це?
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: #2F3D99;"
+                    data-bs-theme="dark">
+                    <li class="dropdown-item" style="color: white">А це подарунок на нашу річницю.</li>
+                    <li class="dropdown-item" style="color: white">Щоріч тут будуть з'являтися карточки з моїми привітаннями. :)</li>
+                </ul>
+            </div>
+    </header>
+
+    <main>
+        <div class="position-fixed top-0 end-0 p-3 mt-5"> 
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+    {% block content %}
+        {% if cards %}
+            <div class="grid-container mt-5 justify-content-center" data-masonry='{"percentPosition": true }'>
+            {% for card in cards %}
+                <div class="grid-item col-sm-5 col-lg-3 mb-4 mx-lg-5">
+                    <div class="card p-5" style="margin: 10px">
+                        <a href="{% url 'card_info' slug=card.slug %}">
+                            <h3>{{ card.name }}</h3>
+                            <h5>{{ card.year }}</h5>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <div class="mt-5">
+                <h4>No memories created yet. :c</h4>
+            </div>
+        {% endif %}
+    {% endblock %}
+    </main>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const grid = document.querySelector('.grid-container');
+        const masonry = new Masonry(grid, {
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-item',
+            gutter: 20
+        });
+
+        const gridItems = document.querySelectorAll('.grid-item');
+
+        gridItems.forEach(function (item) {
+            const contentWidth = item.querySelector('.type-label').offsetWidth;
+            const contentHeight = item.querySelector('.type-label').offsetHeight;
+
+            const minContentWidth = contentWidth + 40;
+            const minContentHeight = contentHeight + 40;
+
+            const maxWidth = 400;
+            const maxHeight = 400;
+
+            const randomWidth = Math.floor(Math.random() * (maxWidth - minContentWidth + 1)) + minContentWidth;
+            const randomHeight = Math.floor(Math.random() * (maxHeight - minContentHeight + 1)) + minContentHeight;
+
+            item.style.width = randomWidth + 'px';
+            item.style.height = randomHeight + 'px';
+        });
+        masonry.layout();
+    });
+</script>
+</html>

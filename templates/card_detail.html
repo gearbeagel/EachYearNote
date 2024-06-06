@@ -1,0 +1,15 @@
+{% extends 'home.html' %}
+
+{% block title %}<title>{{ card.name }}</title>{% endblock %}
+
+{% block content %}
+<body class="d-flex h-100 text-center text-bg-dark" style="background-color: #C1CEFE !important;">
+
+    <main class="px-3">
+        <h1>{{ card.name }}</h1>
+        <h3>{{ card.year }}</h3>
+        <div class="card-content">
+            {{ card.contents|safe }}
+        </div>
+    </main>
+{% endblock %}
