@@ -15,19 +15,20 @@
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'heart.ico' %}" rel="icon" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
             integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
             async></script>
     {% block title %}<title>Home</title>{% endblock %}
     <style>
         * {
-            color: #7189FF;
+            color: #2B303A;
         }
         .card {
-            background-color: #758ECD;
-            border: 3px solid #A0DDFF;
+            background-color: #92DCE5;
+            border: 3px solid #92DCE5;
             border-radius: 20px;
-            color: #A0DDFF;
+            color: #2B303A;
             width: 350px;
         }
 
@@ -37,21 +38,24 @@
         }
     </style>
 </head>
-<body class="d-flex h-100 text-center text-bg-dark" style="background-color: #C1CEFE !important;">
+<body class="d-flex h-100 text-center text-bg-dark" style="background-color: #140F2D !important;">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-3 sticky-md-top">
         <div>
-            <a href="{% url 'home' %}" style="text-decoration: none"><h3 class="float-md-start mb-0">For My Love <3</h3></a>
+            <a href="{% url 'home' %}" style="text-decoration: none; color: #92DCE5"><h3 class="float-md-start mb-0">For My Love <3</h3></a>
         </div>
         <div class="dropdown-menu-end float-md-end">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #2F3D99; border: none">
+                        data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #92DCE5; border: none; color: #2B303A">
                    Вітя, а що це?
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: #2F3D99;"
-                    data-bs-theme="dark">
-                    <li class="dropdown-item" style="color: white">А це подарунок на нашу річницю.</li>
-                    <li class="dropdown-item" style="color: white">Щоріч тут будуть з'являтися карточки з моїми привітаннями. :)</li>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: #92DCE5;">
+                    <li class="dropdown-item">А це подарунок на нашу річницю.</li>
+                    <li class="dropdown-item">Щоріч тут будуть з'являтися карточки з моїми привітаннями. :)</li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="https://github.com/gearbeagel/EachYearNote" target="_blank">Оцінюй код :)</a></li>
                 </ul>
             </div>
     </header>

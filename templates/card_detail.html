@@ -3,13 +3,18 @@
 {% block title %}<title>{{ card.name }}</title>{% endblock %}
 
 {% block content %}
-<body class="d-flex h-100 text-center text-bg-dark" style="background-color: #C1CEFE !important;">
+<body class="d-flex h-100 text-center text-bg-dark" style="background-color: #C1CEFE !important; color: #2B303A">
 
-    <main class="px-3">
-        <h1>{{ card.name }}</h1>
-        <h3>{{ card.year }}</h3>
-        <div class="card-content">
-            {{ card.contents|safe }}
+    <main class="container d-flex justify-content-center align-items-center" style="height: 100vh; margin-top: -75px">
+        <div class="text-center">
+            <div class="card mb-5 p-5 mx-auto">
+                <h1>{{ card.name }}</h1>
+                <h3>{{ card.year }}</h3>
+            </div>
+            <div class="card-content card d-flex justify-content-center p-5 mx-auto" style="width: 700px;">
+                {{ card.contents|safe }}
+            </div>
         </div>
     </main>
+</body>
 {% endblock %}
