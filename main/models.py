@@ -16,3 +16,9 @@ class YearlyCards(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Photo(models.Model):
+    card = models.ForeignKey(YearlyCards, related_name='photos', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='photos/')
+    caption = models.CharField(max_length=255, blank=True)
