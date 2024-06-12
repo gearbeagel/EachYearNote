@@ -6,7 +6,7 @@ from main.models import YearlyCards
 # Create your views here.
 def home(request):
     cards = YearlyCards.objects.all().order_by('-year')
-    messages.info(request, 'Привіт, Нікіт. :)')
+    messages.info(request, 'Переверни телефон так, як в бравл граєш!')
     return render(request, 'home.html', {'cards': cards})
 
 def card_detail(request, slug):

@@ -15,7 +15,7 @@
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'heart.ico' %}" rel="icon" type="image/x-icon">
+    <link href="/media/heart.ico" rel="icon">
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
             integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
             async></script>
@@ -59,9 +59,18 @@
                 </ul>
             </div>
     </header>
-
     <main>
     {% block content %}
+        <div class="position-fixed top-0 end-0 p-3 mt-5"> 
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
         {% if cards %}
             <div class="grid-container mt-5 justify-content-center" data-masonry='{"percentPosition": true }'>
             {% for card in cards %}

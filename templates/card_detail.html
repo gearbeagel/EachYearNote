@@ -1,72 +1,89 @@
 {% extends 'home.html' %}
 
-{% block title %}<title>{{ card.name }}</title>{% endblock %}
+{% block title %}
+    <title>{{ card.name }}</title>
+{% endblock %}
 
 {% block content %}
     <style>
-.carousel-inner {
-    max-width: 600px;
-    max-height: 600px;
-    margin: auto;
-}
+        .carousel-inner {
+            max-width: 600px;
+            max-height: 600px;
+            margin: auto;
+        }
 
-.carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .carousel-item img {
+            width: 100%;
+            height: auto; /* Adjusted to maintain aspect ratio */
+            object-fit: cover;
+            border-radius: 25px; /* Rounded corners for images */
+        }
 
-.custom-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(146, 220, 229, 0.7);
-    color: white;
-    padding: 10px;
-    box-sizing: border-box;
-}
-</style>
-<body class="d-flex h-100 text-center text-bg-dark" style="background-color: #C1CEFE !important; color: #2B303A">
+        .custom-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(146, 220, 229, 0.7);
+            color: white;
+            padding: 10px;
+            box-sizing: border-box;
+            border-bottom-right-radius: 25px;
+            border-bottom-left-radius: 25px;
+        }
 
-    <main class="container d-flex justify-content-center align-items-center" style="height: 100vh; margin-top: -75px">
-        <div class="d-flex flex-column text-center">
-            <div class="card mb-3 p-5 mx-auto">
-                <h3>{{ card.name }}</h3>
-                <h5>{{ card.year }}</h5>
-            </div>
-            <div class="d-flex">
-                <div class="card-content card d-flex text-start p-5 mx-auto" data-bs-spy="scroll"
-                     style="width: max-content; height: max-content">
-                    {{ card.contents|safe }}
-                </div>
-                {% if card.photos.all %}
-                    <div id="photoCarousel" class="carousel slide mx-3" data-ride="carousel">
-                        <div class="carousel-inner">
-                            {% for photo in card.photos.all %}
-                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                    <img src="{{ photo.image.url }}" class="d-block mx-auto" alt="{{ photo.caption }}"
-                                         style="width: 100%; height: auto; border-radius: 25px">
-                                    <div class="carousel-caption d-none d-md-block custom-caption" style='border-bottom-right-radius: 25px; border-bottom-left-radius: 25px'>
-                                        <p>{{ photo.caption }}</p>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <a class="carousel-control-prev" href="#photoCarousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#photoCarousel" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+        /* Adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .carousel-inner {
+                max-width: 100%;
+                max-height: 400px; /* Adjust height for smaller screens */
+            }
+
+            .carousel-item img {
+                height: 100%; /* Ensure image covers entire carousel item */
+            }
+
+            .custom-caption {
+                font-size: 14px; /* Adjust font size for smaller screens */
+            }
+        }
+    </style>
+
+    <body class="d-flex h-100 text-center text-bg-dark" style="background-color: #C1CEFE !important; color: #2B303A;">
+        <main class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <div class="d-flex flex-column text-center">
+                <div class="d-flex">
+                    <div class="card-content card d-flex text-start p-5 mx-auto" data-bs-spy="scroll"
+                         style="width: max-content; height: max-content;">
+                        {{ card.contents|safe }}
                     </div>
-                {% endif %}
+                    {% if card.photos.all %}
+                        <div id="photoCarousel" class="carousel slide mx-3" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for photo in card.photos.all %}
+                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                        <img src="{{ photo.image.url }}" class="d-block w-100" alt="{{ photo.caption }}">
+                                        <div class="carousel-caption d-none d-md-block custom-caption">
+                                            <p>{{ photo.caption }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#photoCarousel" role="button" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#photoCarousel" role="button" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    </main>
-</body>
+        </main>
+    </body>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
