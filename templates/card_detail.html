@@ -6,23 +6,28 @@
 
 {% block content %}
     <style>
+        .carousel {
+            height: 600px;
+            width: 600px;
+        }
+
         .carousel-inner {
-            max-width: 600px;
-            max-height: 600px;
+            max-width: 100%;
+            max-height: 100%;
             margin: auto;
         }
 
         .carousel-item img {
             width: 100%;
-            height: auto; /* Adjusted to maintain aspect ratio */
+            height: 100%;
             object-fit: cover;
-            border-radius: 25px; /* Rounded corners for images */
+            border-radius: 25px;
         }
 
         .custom-caption {
             position: absolute;
-            bottom: 0;
             left: 0;
+            bottom: 0;
             width: 100%;
             background-color: rgba(146, 220, 229, 0.7);
             color: white;
@@ -30,56 +35,76 @@
             box-sizing: border-box;
             border-bottom-right-radius: 25px;
             border-bottom-left-radius: 25px;
+            z-index: 10; 
         }
 
-        /* Adjustments for smaller screens */
         @media (max-width: 768px) {
-            .carousel-inner {
-                max-width: 100%;
-                max-height: 400px; /* Adjust height for smaller screens */
+            main {
+                margin-top: 275px !important;
+            }
+
+            .container-content {
+                padding-top: 0; 
+                flex-direction: column;
+                align-items: center; 
+            }
+
+            .carousel {
+                width: 100%;
+                height: 400px; 
+                margin: 0; 
             }
 
             .carousel-item img {
-                height: 100%; /* Ensure image covers entire carousel item */
+                height: 100%; 
             }
 
             .custom-caption {
-                font-size: 14px; /* Adjust font size for smaller screens */
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .container-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card-content {
+                margin-right: 40px;
             }
         }
     </style>
 
     <body class="d-flex h-100 text-center text-bg-dark" style="background-color: #C1CEFE !important; color: #2B303A;">
         <main class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-            <div class="d-flex flex-column text-center">
-                <div class="d-flex">
-                    <div class="card-content card d-flex text-start p-5 mx-auto" data-bs-spy="scroll"
-                         style="width: max-content; height: max-content;">
-                        {{ card.contents|safe }}
-                    </div>
-                    {% if card.photos.all %}
-                        <div id="photoCarousel" class="carousel slide mx-3" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                {% for photo in card.photos.all %}
-                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                        <img src="{{ photo.image.url }}" class="d-block w-100" alt="{{ photo.caption }}">
-                                        <div class="carousel-caption d-none d-md-block custom-caption">
-                                            <p>{{ photo.caption }}</p>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <a class="carousel-control-prev" href="#photoCarousel" role="button" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#photoCarousel" role="button" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </a>
-                        </div>
-                    {% endif %}
+            <div class="container-content d-flex text-center">
+                <div class="card-content card d-flex text-start p-5 mx-auto" data-bs-spy="scroll" style="width: fit-content; height: max-content;">
+                    {{ card.contents|safe }}
                 </div>
+                {% if card.photos.all %}
+                    <div id="photoCarousel" class="carousel slide mx-0" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for photo in card.photos.all %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ photo.image.url }}" class="d-block w-100" alt="{{ photo.caption }}">
+                                    <div class="carousel-caption d-block custom-caption">
+                                        <p>{{ photo.caption }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#photoCarousel" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#photoCarousel" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </main>
     </body>

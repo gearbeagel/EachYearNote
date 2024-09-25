@@ -15,7 +15,7 @@
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
-    <link href="/media/heart.ico" rel="icon">
+    <link href="/media/heart.ico" type="image/x-icon" rel="icon">
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
             integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
             async></script>
@@ -40,7 +40,7 @@
 </head>
 <body class="d-flex h-100 text-center text-bg-dark" style="background-color: #140F2D !important;">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="mb-3 sticky-md-top">
+    <header class="mb-3 w-100 sticky-lg-top navbar">
         <div>
             <a href="{% url 'home' %}" style="text-decoration: none; color: #92DCE5"><h3 class="float-md-start mb-0">For My Love <3</h3></a>
         </div>
@@ -61,21 +61,11 @@
     </header>
     <main>
     {% block content %}
-        <div class="position-fixed top-0 end-0 p-3 mt-5"> 
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
         {% if cards %}
-            <div class="grid-container mt-5 justify-content-center" data-masonry='{"percentPosition": true }'>
+            <div class="grid-container mt-5 d-flex justify-content-center mx-auto" style="max-width: 100%; flex-wrap: wrap;">
             {% for card in cards %}
-                <div class="grid-item col-sm-5 col-lg-3 mb-4 mx-lg-5">
-                    <div class="card p-5">
+                <div class="grid-item col-sm-5 col-lg-3 mb-4 d-flex justify-content-center">
+                    <div class="card p-5" style="max-width: 600px;"> 
                         <a href="{% url 'card_info' slug=card.slug %}">
                             <h3>{{ card.name }}</h3>
                             <h5>{{ card.year }}</h5>
@@ -83,14 +73,15 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>
+            </div>
         {% else %}
             <div class="mt-5">
                 <h4>No memories created yet. :c</h4>
             </div>
         {% endif %}
     {% endblock %}
-    </main>
+</main>
+
 </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
